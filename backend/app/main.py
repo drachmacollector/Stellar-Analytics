@@ -51,7 +51,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
                 "http://localhost:5173",
-                "https://kepler-ai-koi.vercel.app/"
+                "https://kepler-ai-koi.vercel.app"
                 ],  # For development only
     allow_credentials=True,
     allow_methods=["*"],
