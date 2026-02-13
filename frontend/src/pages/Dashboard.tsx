@@ -35,7 +35,7 @@ export const Dashboard = () => {
                     </div>
                     <div>
                         <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
-                            Stellar Analytics
+                            Kepler AI
                         </h1>
                         <p className="text-[10px] text-slate-400 font-medium tracking-wider uppercase">
                             Exoplanet Classification System
