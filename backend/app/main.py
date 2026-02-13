@@ -49,7 +49,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # For development only
+    allow_origins=["https://stellar-analytics.vercel.app/"],  # For development only
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
