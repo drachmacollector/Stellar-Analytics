@@ -33,6 +33,8 @@ from typing import Dict, List, Optional
 from datetime import datetime
 import pandas as pd
 from fastapi import HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+
 
 
 class PredictionRequest(BaseModel):
@@ -44,6 +46,15 @@ app = FastAPI(
     title="Stellar Analytics API",
     version="1.0.0"
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # For development only
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # ---- Resolve Absolute Path Safely ----
 
