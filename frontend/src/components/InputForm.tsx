@@ -1,8 +1,9 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
+import { ChevronDown, ChevronUp, Sparkles, FileJson, FileText } from 'lucide-react';
 import { featureConfig } from '@/config/featureConfig';
 import { FeatureInput } from '@/components/FeatureInput';
+import { JsonInput } from '@/components/JsonInput';
 import { FeatureKey } from '@/types/prediction';
 
 interface InputFormProps {
@@ -14,6 +15,7 @@ export const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
     const [values, setValues] = useState<Record<string, number | ''>>({});
     const [showAdvanced, setShowAdvanced] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
+    const [inputMode, setInputMode] = useState<'form' | 'json'>('form');
 
     const coreFeatures = useMemo(() =>
         featureConfig.filter(f => f.category === 'core'),
@@ -69,9 +71,43 @@ export const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
         }
     };
 
+    const handleJsonChange = (newValues: Record<string, number | ''>) => {
+        setValues(newValues);
+        setInputMode('form');
+    };
+
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-6 h-full overflow-y-auto custom-scrollbar">
-            <div className="space-y-4">
+            <div className="flex bg-white/5 p-1 rounded-lg border border-white/10 w-fit">
+                <button
+                    type="button"
+                    onClick={() => setInputMode('form')}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-300 ${inputMode === 'form'
+                        ? 'bg-accent-cyan/20 text-accent-cyan shadow-sm'
+                        : 'text-slate-400 hover:text-slate-200'
+                        }`}
+                >
+                    <FileText className="w-4 h-4" />
+                    Form
+                </button>
+                <button
+                    type="button"
+                    onClick={() => setInputMode('json')}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-300 ${inputMode === 'json'
+                        ? 'bg-accent-cyan/20 text-accent-cyan shadow-sm'
+                        : 'text-slate-400 hover:text-slate-200'
+                        }`}
+                >
+                    <FileJson className="w-4 h-4" />
+                    JSON
+                </button>
+            </div>
+
+            {inputMode === 'json' ? (
+                <JsonInput value={values} onChange={handleJsonChange} />
+            ) : (
+                <>
+                    <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-white/90 flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-accent-cyan" />
                     Core Parameters
@@ -127,11 +163,13 @@ export const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-accent-cyan/80 to-blue-600/80 hover:from-accent-cyan hover:to-blue-600 text-white font-semibold tracking-wide shadow-lg shadow-cyan-900/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                    className="w-full py-3 px-6 rounded-lg bg-linear-to-r from-accent-cyan/80 to-blue-600/80 hover:from-accent-cyan hover:to-blue-600 text-white font-semibold tracking-wide shadow-lg shadow-cyan-900/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
                 >
                     {isLoading ? 'CLASSIFYING EXOPLANET...' : 'ANALYZE CANDIDATE'}
                 </button>
             </div>
+            </>
+            )}
         </form>
     );
 };
