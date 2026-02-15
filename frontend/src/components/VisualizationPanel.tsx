@@ -8,13 +8,12 @@ interface VisualizationPanelProps {
 export const VisualizationPanel = ({ result }: VisualizationPanelProps) => {
     const data = [
         { name: 'Confirmed', value: (result.probabilities['CONFIRMED'] || 0) * 100 },
-        { name: 'False Positive', value: (result.probabilities['FALSE POSITIVE'] || 0) * 100 },
-        { name: 'Candidate', value: (result.probabilities['CANDIDATE'] || 0) * 100 },
+        { name: 'False Positive', value: (result.probabilities['FALSE POSITIVE'] || 0) * 100 }
     ];
 
     return (
         <div className="w-full h-64 mt-6">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="80%">
                 <BarChart data={data} layout="vertical" margin={{ left: 40, right: 20 }}>
                     <XAxis type="number" hide domain={[0, 100]} />
                     <YAxis

@@ -71,13 +71,16 @@ export const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
         }
     };
 
+    const [isJsonDirty, setIsJsonDirty] = useState(false);
+
     const handleJsonChange = (newValues: Record<string, number | ''>) => {
         setValues(newValues);
         setInputMode('form');
+        setIsJsonDirty(false); // Reset dirty state on successful apply
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col h-full relative overflow-hidden">
+        <form onSubmit={handleSubmit} className="flex flex-col h-full bg-transparent">
             <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
                 <div className="flex bg-white/5 p-1 rounded-lg border border-white/10 w-fit">
                     <button
@@ -105,7 +108,11 @@ export const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
                 </div>
 
                 {inputMode === 'json' ? (
-                    <JsonInput value={values} onChange={handleJsonChange} />
+                    <JsonInput 
+                        value={values} 
+                        onChange={handleJsonChange} 
+                        onDirtyChange={setIsJsonDirty} 
+                    />
                 ) : (
                     <>
                         <div className="space-y-4">
@@ -163,17 +170,19 @@ export const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
                 )}
             </div>
 
-            <div className="p-4 border-t border-white/10 bg-white/5 backdrop-blur-xl z-10 box-border">
+            <div className="p-4 border-t border-white/10 bg-galaxy-900/80 backdrop-blur-xl z-20 box-border shadow-[0_-10px_40px_rgba(0,0,0,0.5)] flex-none">
                 <button
                     type="submit"
-                    disabled={isLoading}
-                    className="w-full py-3.5 px-6 rounded-xl bg-linear-to-r from-accent-cyan to-blue-600 hover:from-accent-cyan/90 hover:to-blue-600/90 text-white font-bold tracking-wide shadow-lg shadow-cyan-900/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform active:scale-[0.98]"
+                    disabled={isLoading || (inputMode === 'json' && isJsonDirty)}
+                    className="w-full py-4 px-6 rounded-xl bg-linear-to-r from-accent-cyan to-blue-600 hover:from-accent-cyan/90 hover:to-blue-600/90 text-white font-bold tracking-wide shadow-lg shadow-cyan-900/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform active:scale-[0.98]"
                 >
                     {isLoading ? (
                         <div className="flex items-center justify-center gap-2">
                             <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                             ANALYZING...
                         </div>
+                    ) : inputMode === 'json' && isJsonDirty ? (
+                        'APPLY CHANGES FIRST'
                     ) : (
                         'ANALYZE CANDIDATE'
                     )}

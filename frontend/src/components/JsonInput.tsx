@@ -5,9 +5,10 @@ import clsx from 'clsx';
 interface JsonInputProps {
     value: Record<string, number | ''>;
     onChange: (values: Record<string, number | ''>) => void;
+    onDirtyChange?: (isDirty: boolean) => void;
 }
 
-export const JsonInput = ({ value, onChange }: JsonInputProps) => {
+export const JsonInput = ({ value, onChange, onDirtyChange }: JsonInputProps) => {
     const [text, setText] = useState('');
     const [error, setError] = useState<string | null>(null);
 
@@ -19,11 +20,14 @@ export const JsonInput = ({ value, onChange }: JsonInputProps) => {
             return acc;
         }, {} as Record<string, any>);
         
-        setText(JSON.stringify(cleanValues, null, 2));
+        const initialText = JSON.stringify(cleanValues, null, 2);
+        setText(initialText);
+        if (onDirtyChange) onDirtyChange(false);
     }, []);
 
     const handleTextChange = (newText: string) => {
         setText(newText);
+        if (onDirtyChange) onDirtyChange(true);
         
         try {
             if (!newText.trim()) {
@@ -58,6 +62,7 @@ export const JsonInput = ({ value, onChange }: JsonInputProps) => {
             // Merge with existing structure to ensure type safety if needed, 
             // though here we just trust the parsed object after validation
             onChange(parsed);
+            if (onDirtyChange) onDirtyChange(false);
         } catch (e) {
             // Should be caught by handleTextChange, but safety net
             setError("Invalid JSON");
@@ -65,7 +70,7 @@ export const JsonInput = ({ value, onChange }: JsonInputProps) => {
     };
 
     return (
-        <div className="flex flex-col h-full gap-4">
+        <div className="flex flex-col h-full gap-4 relative">
             <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-white/90 flex items-center gap-2">
                     <FileJson className="w-4 h-4 text-accent-cyan" />
