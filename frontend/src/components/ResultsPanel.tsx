@@ -3,16 +3,16 @@ import { CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { PredictionResponse } from '@/types/prediction';
 import clsx from 'clsx';
 import { VisualizationPanel } from '@/components/VisualizationPanel';
-import {
-    ResponsiveContainer,
-    ScatterChart,
-    Scatter,
-    CartesianGrid,
-    XAxis,
-    YAxis,
-    Tooltip,
-    Cell
-} from 'recharts';
+// import {
+//     ResponsiveContainer,
+//     ScatterChart,
+//     Scatter,
+//     CartesianGrid,
+//     XAxis,
+//     YAxis,
+//     Tooltip,
+//     Cell
+// } from 'recharts';
 
 interface ResultsPanelProps {
     result: PredictionResponse | null;
