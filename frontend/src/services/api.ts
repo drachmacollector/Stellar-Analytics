@@ -34,7 +34,7 @@ export const predict = async (
                 'FALSE POSITIVE': probFalsePositive,
                 'CANDIDATE': 0 // Backend is binary class only
             },
-            radius: response.data.regression?.predicted_koi_prad,
+            radius: response.data.regression?.predicted_planetary_radius_earth_radii,
             timestamp: metadata.timestamp
         };
     } catch (error) {

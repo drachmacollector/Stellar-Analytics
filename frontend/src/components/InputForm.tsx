@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronUp, Sparkles, FileJson, FileText } from 'lucide-react';
+import { Globe, Star, FileJson, FileText } from 'lucide-react';
 import { featureConfig } from '@/config/featureConfig';
 import { FeatureInput } from '@/components/FeatureInput';
 import { JsonInput } from '@/components/JsonInput';
@@ -13,16 +12,15 @@ interface InputFormProps {
 
 export const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
     const [values, setValues] = useState<Record<string, number | ''>>({});
-    const [showAdvanced, setShowAdvanced] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [inputMode, setInputMode] = useState<'form' | 'json'>('form');
 
-    const coreFeatures = useMemo(() =>
-        featureConfig.filter(f => f.category === 'core'),
+    const planetFeatures = useMemo(() =>
+        featureConfig.filter(f => f.section === 'planet'),
         []);
 
-    const advancedFeatures = useMemo(() =>
-        featureConfig.filter(f => f.category === 'advanced'),
+    const stellarFeatures = useMemo(() =>
+        featureConfig.filter(f => f.section === 'stellar'),
         []);
 
     const validate = () => {
@@ -115,13 +113,14 @@ export const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
                     />
                 ) : (
                     <>
+                        {/* ── Planet Features ── */}
                         <div className="space-y-4">
-                            <h3 className="text-sm font-semibold text-slate-400 flex items-center gap-2 uppercase tracking-wider">
-                                <Sparkles className="w-4 h-4 text-accent-cyan" />
-                                Core Parameters
+                            <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 uppercase tracking-wider">
+                                <Globe className="w-4 h-4 text-accent-cyan" />
+                                Planet Features
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {coreFeatures.map(config => (
+                                {planetFeatures.map(config => (
                                     <FeatureInput
                                         key={config.id}
                                         config={config}
@@ -133,38 +132,23 @@ export const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
                             </div>
                         </div>
 
-                        <div className="border-t border-white/5 pt-4">
-                            <button
-                                type="button"
-                                onClick={() => setShowAdvanced(!showAdvanced)}
-                                className="flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors w-full justify-between p-2 rounded-lg hover:bg-white/5"
-                            >
-                                <span>Advanced Configuration</span>
-                                {showAdvanced ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                            </button>
-
-                            <AnimatePresence>
-                                {showAdvanced && (
-                                    <motion.div
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: 'auto', opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        className="overflow-hidden"
-                                    >
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 pb-2">
-                                            {advancedFeatures.map(config => (
-                                                <FeatureInput
-                                                    key={config.id}
-                                                    config={config}
-                                                    value={values[config.id] ?? ''}
-                                                    onChange={(val) => handleChange(config.id, val)}
-                                                    error={errors[config.id]}
-                                                />
-                                            ))}
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
+                        {/* ── Stellar Features ── */}
+                        <div className="space-y-4 border-t border-white/5 pt-6">
+                            <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 uppercase tracking-wider">
+                                <Star className="w-4 h-4 text-yellow-400" />
+                                Stellar Features
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {stellarFeatures.map(config => (
+                                    <FeatureInput
+                                        key={config.id}
+                                        config={config}
+                                        value={values[config.id] ?? ''}
+                                        onChange={(val) => handleChange(config.id, val)}
+                                        error={errors[config.id]}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </>
                 )}

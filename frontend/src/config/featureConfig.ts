@@ -1,7 +1,7 @@
 import { FeatureConfig } from '@/types/prediction';
 
 export const featureConfig: FeatureConfig[] = [
-    // Planetary Features (Core)
+    // ── Planet Features ───────────────────────────────────────
     {
         id: 'koi_period',
         label: 'Orbital Period',
@@ -10,6 +10,7 @@ export const featureConfig: FeatureConfig[] = [
         max: 1000,
         required: true,
         category: 'core',
+        section: 'planet',
     },
     {
         id: 'koi_duration',
@@ -19,6 +20,7 @@ export const featureConfig: FeatureConfig[] = [
         max: 100,
         required: true,
         category: 'core',
+        section: 'planet',
     },
     {
         id: 'koi_depth',
@@ -28,8 +30,8 @@ export const featureConfig: FeatureConfig[] = [
         max: 1000000,
         required: true,
         category: 'core',
+        section: 'planet',
     },
-
     {
         id: 'koi_impact',
         label: 'Impact Parameter',
@@ -37,7 +39,8 @@ export const featureConfig: FeatureConfig[] = [
         min: 0,
         max: 5,
         required: true,
-        category: 'advanced',
+        category: 'core',
+        section: 'planet',
     },
     {
         id: 'koi_model_snr',
@@ -46,7 +49,8 @@ export const featureConfig: FeatureConfig[] = [
         min: 0,
         max: 10000,
         required: true,
-        category: 'advanced',
+        category: 'core',
+        section: 'planet',
     },
     {
         id: 'koi_num_transits',
@@ -55,19 +59,11 @@ export const featureConfig: FeatureConfig[] = [
         min: 0,
         max: 1000,
         required: true,
-        category: 'advanced',
-    },
-    {
-        id: 'koi_ror',
-        label: 'Planet-Star Radius Ratio',
-        description: 'Ratio of planet radius to stellar radius',
-        min: 0,
-        max: 1,
-        required: true,
-        category: 'advanced',
+        category: 'core',
+        section: 'planet',
     },
 
-    // Stellar Features (Core)
+    // ── Stellar Features ──────────────────────────────────────
     {
         id: 'st_teff',
         label: 'Stellar Temperature',
@@ -76,6 +72,27 @@ export const featureConfig: FeatureConfig[] = [
         max: 10000,
         required: true,
         category: 'core',
+        section: 'stellar',
+    },
+    {
+        id: 'st_logg',
+        label: 'Stellar Surface Gravity',
+        description: 'Base-10 logarithm of surface gravity (cm/s²)',
+        min: 0,
+        max: 6,
+        required: true,
+        category: 'core',
+        section: 'stellar',
+    },
+    {
+        id: 'st_met',
+        label: 'Stellar Metallicity',
+        description: 'Logarithm of iron-to-hydrogen ratio',
+        min: -2,
+        max: 1,
+        required: true,
+        category: 'core',
+        section: 'stellar',
     },
     {
         id: 'st_mass',
@@ -85,6 +102,7 @@ export const featureConfig: FeatureConfig[] = [
         max: 20,
         required: true,
         category: 'core',
+        section: 'stellar',
     },
     {
         id: 'st_radius',
@@ -94,126 +112,6 @@ export const featureConfig: FeatureConfig[] = [
         max: 200,
         required: true,
         category: 'core',
-    },
-
-    // Stellar Features (Advanced)
-    {
-        id: 'st_logg',
-        label: 'Stellar Surface Gravity',
-        description: 'Base-10 logarithm of surface gravity (cm/s^2)',
-        min: 0,
-        max: 6,
-        required: true,
-        category: 'advanced',
-    },
-    {
-        id: 'st_met',
-        label: 'Stellar Metallicity',
-        description: 'Logarithm of iron-to-hydrogen ratio',
-        min: -2,
-        max: 1,
-        required: true,
-        category: 'advanced',
-    },
-    {
-        id: 'st_dens',
-        label: 'Stellar Density',
-        description: 'Density of the star (g/cm^3)',
-        min: 0,
-        max: 100,
-        required: true,
-        category: 'advanced',
-    },
-
-    // Error Bars (Advanced)
-    {
-        id: 'teff_err1',
-        label: 'Temp Error (+)',
-        description: 'Uncertainty in temperature upper bound',
-        min: 0,
-        max: 1000,
-        required: true,
-        category: 'advanced',
-    },
-    {
-        id: 'teff_err2',
-        label: 'Temp Error (-)',
-        description: 'Uncertainty in temperature lower bound',
-        min: -1000,
-        max: 0,
-        required: true,
-        category: 'advanced',
-    },
-    {
-        id: 'logg_err1',
-        label: 'Gravity Error (+)',
-        description: 'Uncertainty in surface gravity upper bound',
-        min: 0,
-        max: 1,
-        required: true,
-        category: 'advanced',
-    },
-    {
-        id: 'logg_err2',
-        label: 'Gravity Error (-)',
-        description: 'Uncertainty in surface gravity lower bound',
-        min: -1,
-        max: 0,
-        required: true,
-        category: 'advanced',
-    },
-    {
-        id: 'feh_err1',
-        label: 'Metallicity Error (+)',
-        description: 'Uncertainty in metallicity upper bound',
-        min: 0,
-        max: 1,
-        required: true,
-        category: 'advanced',
-    },
-    {
-        id: 'feh_err2',
-        label: 'Metallicity Error (-)',
-        description: 'Uncertainty in metallicity lower bound',
-        min: -1,
-        max: 0,
-        required: true,
-        category: 'advanced',
-    },
-    {
-        id: 'mass_err1',
-        label: 'Mass Error (+)',
-        description: 'Uncertainty in mass upper bound',
-        min: 0,
-        max: 1,
-        required: true,
-        category: 'advanced',
-    },
-    {
-        id: 'mass_err2',
-        label: 'Mass Error (-)',
-        description: 'Uncertainty in mass lower bound',
-        min: -1,
-        max: 0,
-        required: true,
-        category: 'advanced',
-    },
-    {
-        id: 'radius_err1',
-        label: 'Radius Error (+)',
-        description: 'Uncertainty in radius upper bound',
-        min: 0,
-        max: 1,
-        required: true,
-        category: 'advanced',
-    },
-    {
-        id: 'radius_err2',
-        label: 'Radius Error (-)',
-        description: 'Uncertainty in radius lower bound',
-        min: -1,
-        max: 0,
-        required: true,
-        category: 'advanced',
+        section: 'stellar',
     },
 ];
