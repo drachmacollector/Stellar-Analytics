@@ -5,7 +5,7 @@ import { LoadingOverlay } from '@/components/LoadingOverlay';
 import { ErrorBanner } from '@/components/ErrorBanner';
 import { predict } from '@/services/api';
 import { PredictionResponse } from '@/types/prediction';
-import { Sparkles, Activity } from 'lucide-react';
+import { Activity } from 'lucide-react';
 
 export const Dashboard = () => {
     const [loading, setLoading] = useState(false);
@@ -26,13 +26,17 @@ export const Dashboard = () => {
     };
 
     return (
-        <div className="min-h-screen bg-galaxy-900 text-white font-sans selection:bg-accent-cyan/30 flex flex-col overflow-hidden">
+        <div className="h-screen bg-galaxy-900 text-white font-sans selection:bg-accent-cyan/30 flex flex-col overflow-hidden">
+            {/* Global background image */}
+            <div className="fixed inset-0 z-0 pointer-events-none">
+                <img src="/bg3.jpg" alt="" className="w-full h-full object-cover opacity-20" />
+                <div className="absolute inset-0 bg-gradient-to-b from-galaxy-900/60 via-galaxy-900/40 to-galaxy-900/80" />
+            </div>
+
             {/* Header */}
-            <header className="px-8 py-5 border-b border-white/10 bg-white/5 backdrop-blur-xl flex items-center justify-between z-20">
+            <header className="relative z-20 px-8 py-5 border-b border-white/10 bg-black/30 backdrop-blur-xl flex items-center justify-between flex-none">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-purple to-accent-cyan flex items-center justify-center shadow-lg shadow-accent-purple/20">
-                        <Sparkles className="text-white w-6 h-6" />
-                    </div>
+                    <img src="/3947771.png" alt="Kepler AI" className="h-10 w-10 object-contain" />
                     <div>
                         <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
                             Kepler AI
@@ -52,26 +56,26 @@ export const Dashboard = () => {
             </header>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-hidden relative">
-                {/* Background Elements */}
-                <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-                    <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-accent-purple/20 blur-[100px]" />
-                    <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full bg-accent-cyan/10 blur-[120px]" />
+            <main className="flex-1 min-h-0 relative z-10">
+                {/* Subtle accent glows on top of bg image */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                    <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-accent-purple/15 blur-[100px]" />
+                    <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full bg-accent-cyan/8 blur-[120px]" />
                 </div>
 
-                <div className="relative z-10 h-full max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 p-8">
+                <div className="relative z-10 h-full max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 p-6">
                     {/* Left Panel: Input Form */}
-                    <div className="lg:col-span-4 h-full flex flex-col">
-                        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl h-full overflow-hidden flex flex-col">
-                            <div className="p-4 border-b border-white/5 bg-white/5">
-                                <h2 className="text-sm font-semibold text-slate-300">Observation Parameters</h2>
+                    <div className="lg:col-span-4 min-h-0 h-full flex flex-col">
+                        <div className="bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden h-full">
+                            <div className="px-5 py-3.5 border-b border-white/5 bg-white/5 flex-none">
+                                <h2 className="text-sm font-semibold text-slate-300 tracking-wide">Observation Parameters</h2>
                             </div>
                             <InputForm onSubmit={handlePrediction} isLoading={loading} />
                         </div>
                     </div>
 
                     {/* Right Panel: Results & Viz */}
-                    <div className="lg:col-span-8 h-full flex flex-col">
+                    <div className="lg:col-span-8 min-h-0 flex flex-col overflow-y-auto custom-scrollbar">
                         <ResultsPanel result={result} />
                     </div>
                 </div>

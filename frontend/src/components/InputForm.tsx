@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Globe, Star, FileJson, FileText } from 'lucide-react';
+import { Globe, Star, FileJson, FileText, Telescope, Loader2 } from 'lucide-react';
 import { featureConfig } from '@/config/featureConfig';
 import { FeatureInput } from '@/components/FeatureInput';
 import { JsonInput } from '@/components/JsonInput';
@@ -79,7 +79,7 @@ export const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col h-full bg-transparent">
-            <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
+            <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-6 space-y-6">
                 <div className="flex bg-white/5 p-1 rounded-lg border border-white/10 w-fit">
                     <button
                         type="button"
@@ -154,21 +154,27 @@ export const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
                 )}
             </div>
 
-            <div className="p-4 border-t border-white/10 bg-galaxy-900/80 backdrop-blur-xl z-20 box-border shadow-[0_-10px_40px_rgba(0,0,0,0.5)] flex-none">
+            <div className="flex-none px-4 py-3 border-t border-white/10 bg-black/40 backdrop-blur-xl">
                 <button
                     type="submit"
                     disabled={isLoading || (inputMode === 'json' && isJsonDirty)}
-                    className="w-full py-4 px-6 rounded-xl bg-linear-to-r from-accent-cyan to-blue-600 hover:from-accent-cyan/90 hover:to-blue-600/90 text-white font-bold tracking-wide shadow-lg shadow-cyan-900/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform active:scale-[0.98]"
+                    className="w-full flex items-center justify-center gap-2.5 py-3 px-6 rounded-xl font-semibold text-sm tracking-widest uppercase transition-all duration-300 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed
+                        bg-gradient-to-r from-accent-cyan/90 to-blue-500/90 hover:from-accent-cyan hover:to-blue-500
+                        text-white shadow-[0_0_20px_rgba(6,182,212,0.25)] hover:shadow-[0_0_30px_rgba(6,182,212,0.4)]
+                        border border-white/10"
                 >
                     {isLoading ? (
-                        <div className="flex items-center justify-center gap-2">
-                            <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                            ANALYZING...
-                        </div>
+                        <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            Analyzing...
+                        </>
                     ) : inputMode === 'json' && isJsonDirty ? (
-                        'APPLY CHANGES FIRST'
+                        'Apply Changes First'
                     ) : (
-                        'ANALYZE CANDIDATE'
+                        <>
+                            <Telescope className="w-4 h-4" />
+                            Analyze Candidate
+                        </>
                     )}
                 </button>
             </div>

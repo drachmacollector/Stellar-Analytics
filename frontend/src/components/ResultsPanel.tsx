@@ -21,7 +21,7 @@ interface ResultsPanelProps {
 export const ResultsPanel = ({ result }: ResultsPanelProps) => {
     if (!result) {
         return (
-            <div className="h-full flex flex-col items-center justify-center text-slate-500 p-8 text-center bg-white/5 backdrop-blur-md rounded-2xl border border-white/5">
+            <div className="flex flex-col items-center justify-center text-slate-500 p-16 text-center bg-black/20 backdrop-blur-md rounded-2xl border border-white/5 min-h-[400px]">
                 <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
                     <AlertCircle className="w-8 h-8 opacity-50" />
                 </div>
@@ -42,7 +42,7 @@ export const ResultsPanel = ({ result }: ResultsPanelProps) => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className={clsx(
-                "h-full p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl flex flex-col",
+                "p-8 rounded-2xl bg-black/30 backdrop-blur-xl border border-white/10 shadow-2xl flex flex-col",
                 glowColor
             )}
         >
