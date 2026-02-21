@@ -19,7 +19,7 @@ EXPECTED_FEATURES = [
     'koi_impact',
     'koi_model_snr',
     'koi_num_transits',
-    'st_teff',
+    'st_teff', 
     'st_logg',
     'st_met',
     'st_mass',

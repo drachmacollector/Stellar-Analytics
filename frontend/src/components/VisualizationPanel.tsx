@@ -12,9 +12,9 @@ export const VisualizationPanel = ({ result }: VisualizationPanelProps) => {
     ];
 
     return (
-        <div className="w-full h-64 mt-6">
-            <ResponsiveContainer width="100%" height="80%">
-                <BarChart data={data} layout="vertical" margin={{ left: 40, right: 20 }}>
+        <div className="w-full h-32 mt-2">
+            <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={data} layout="vertical" margin={{ left: 40, right: 20, top: 0, bottom: 0 }}>
                     <XAxis type="number" hide domain={[0, 100]} />
                     <YAxis
                         type="category"

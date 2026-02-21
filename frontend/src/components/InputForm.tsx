@@ -78,7 +78,7 @@ export const InputForm = ({ onSubmit, isLoading }: InputFormProps) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col h-full bg-transparent">
+        <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 bg-transparent">
             <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-6 space-y-6">
                 <div className="flex bg-white/5 p-1 rounded-lg border border-white/10 w-fit">
                     <button
