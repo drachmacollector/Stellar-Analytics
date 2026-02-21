@@ -30,7 +30,7 @@ export const Dashboard = () => {
         <div className="h-screen bg-galaxy-900 text-white font-sans selection:bg-accent-cyan/30 flex flex-col overflow-hidden">
             {/* Global background image */}
             <div className="fixed inset-0 z-0 pointer-events-none">
-                <img src="/bg3.jpg" alt="" className="w-full h-full object-cover " />
+                <img src="/bg1.jpg" alt="" className="w-full h-full object-cover " />
             </div>
 
             {/* Floating Dock Navbar */}

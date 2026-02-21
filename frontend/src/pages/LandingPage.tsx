@@ -17,7 +17,7 @@ export const LandingPage = () => {
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">
                     <img 
-                        src="/bg3.jpg" 
+                        src="/bg1.jpg" 
                         alt="Planet Background" 
                         className="w-full h-full object-cover opacity-80"
                     />
