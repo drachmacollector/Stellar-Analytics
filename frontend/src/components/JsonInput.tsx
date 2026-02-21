@@ -101,8 +101,16 @@ export const JsonInput = ({ value, onChange, onDirtyChange }: JsonInputProps) =>
                             : "border-white/10 focus:border-accent-cyan/50 text-slate-200"
                     )}
                     spellCheck={false}
-                    placeholder="Paste your JSON configuration here..."
-                />
+                    placeholder={` Paste your JSON string here. For example 
+{ 
+  "koi_period": 2.525591777,
+  "koi_duration": 1.6545,
+  "koi_depth": 603.3,
+  "koi_impact": 0.701,
+  "koi_model_snr": 40.9,
+  ......
+}`}                
+                    />
                 
                 {error && (
                     <div className="absolute bottom-4 left-4 right-4 bg-red-500/10 border border-red-500/20 rounded-lg p-3 flex items-start gap-2 backdrop-blur-sm">
