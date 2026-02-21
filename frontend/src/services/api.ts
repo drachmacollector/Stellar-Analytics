@@ -3,7 +3,7 @@ import { PredictionRequest, PredictionResponse } from '@/types/prediction';
 
 const API_create = axios.create({
     baseURL: 'https://stellar-analytics.onrender.com',
-    timeout: 10000,
+    timeout: 60000,
 });
 
 export const predict = async (
